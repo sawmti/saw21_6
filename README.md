@@ -41,7 +41,7 @@ docker-compose up
 - [Jose Emilio Labra Gayo](http://labra.weso.es)
 - [Jaime Villagran] (https://github.com/jvillagranaa)
 - [Felipe Ponce] (https://github.com/felipeponcea)
-- [Wilson Chamorro](https://github.com/wchamorroc)
+- [Wilson Chamorro] (https://github.com/wchamorroc)
 - [Freddy Alfaro] (https://github.com/freddyus)
 
 
