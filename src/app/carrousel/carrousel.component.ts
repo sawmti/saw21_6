@@ -22,7 +22,7 @@ export class CarrouselComponent implements OnInit {
 
   constructor(private http: HttpClient, private router: Router) {
     this.cars = [];
-    const arr = this.http.get('http://localhost:3000/api/countries');
+    const arr = this.http.get('/api/countries');
     console.log(arr);
     this.countrySelected = {
       id: '',
