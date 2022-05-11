@@ -1,0 +1,46 @@
+<p-toast></p-toast>
+<p-confirmPopup></p-confirmPopup>
+<p-splitter layout="horizontal">
+    <ng-template pTemplate>
+        <div class="p-col-12 p-md-4 drag-column">
+            <h1>{{name}}</h1>
+            <div *ngFor="let card of rockBands">
+                <div class="card-item" pDraggable="rockBands" (onDragStart)="dragStart(card)" (onDragEnd)="dragEnd()">
+                    <p-card header="{{card.name}}" subheader="Creacion: {{card.year}}" [style]="{width: '360px'}" styleClass="p-card-shadow">
+                        <img src="{{card.image_uris}}" width="80px" height="80px" [alt]="card.name" class="card-image" />
+                        <p>{{card.rockBandDescription}}</p>
+                    </p-card>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template pTemplate>
+        <div class="p-col-12 p-md-8 drop-column" pDroppable="rockBands" (onDrop)="drop()">
+            <h1>Total: {{totalBandSelected.num}}</h1>
+            <p-table [value]="rockBandSelect">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Año</th>
+                        <th>Description</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-card>
+                    <tr>
+                        <td>{{card.id}}</td>
+                        <td>{{card.name}}</td>
+                        <td>{{card.year}}</td>
+                        <td>{{card.rockBandDescription}}</td>
+                        <td>
+                            <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-outlined" (click)="deleteCard($event, card)">
+                            </button>
+                        </td>
+
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </ng-template>
+</p-splitter>
