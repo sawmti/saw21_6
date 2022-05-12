@@ -7,7 +7,7 @@ interface RockBand {
   band: string;
   image_uris: any;
   year: string;
-  rockBandDescription: string;
+  rockbanddescription: string;
 }
 
 @Component({
@@ -94,7 +94,7 @@ export class MagicListComponent implements OnInit {
         "band": this.draggedProduct.band,
         "year": this.draggedProduct.year,
         "image_uris": this.draggedProduct.image_uris,
-        "rockbanddescription": this.draggedProduct.rockBandDescription
+        "rockbanddescription": this.draggedProduct.rockbanddescription
       });
       add.subscribe((data: any) => {
         console.log('Insert:', data);

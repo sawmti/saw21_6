@@ -1,9 +1,10 @@
-<h5>Cartas</h5>
+<h1>Paises</h1>
 <p-listbox [options]="cars" [(ngModel)]="countrySelected" (onClick)="handleClick($event)" [metaKeySelection]="false" [filter]="true" optionLabel="name" [listStyle]="{'max-height':'250px'}" [style]="{'width':'30rem'}">
     <ng-template let-car pTemplate="item">
         <div class="car-item">
-            <img src="{{car.icon_svg_uri}}" height="30px" width="30px" />
-            <div>{{car.name}}</div>
+            <div style="vertical-align: top;">
+                <img src="{{car.icon_svg_uri}}" height="30px" width="30px" /> {{car.name}}
+            </div>
         </div>
     </ng-template>
 </p-listbox>

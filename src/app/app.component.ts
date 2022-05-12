@@ -17,11 +17,11 @@ export class AppComponent {
   constructor(private primengConfig: PrimeNGConfig) {
     this.items = [
       {
-        label: 'Buscador de Sets',
+        label: 'Pais de Origen',
         routerLink: ['/carrousel']
       },
       {
-        label: 'Cartas',
+        label: 'Banda Musical',
         routerLink: ['/app-magic-list'],
       },
     ];

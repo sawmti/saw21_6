@@ -15,7 +15,7 @@ const formatRockBandJson = (arr) => {
 		year: getValue(element.year),
 		image_uris: getValue(element.image),
 		band: getValue(element.rockBandLabel),
-		rockBandDescription: getValue(element.rockBandDescription),
+		rockbanddescription: getValue(element.rockBandDescription),
 	}))
 }
 

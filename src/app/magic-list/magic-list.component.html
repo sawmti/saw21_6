@@ -1,9 +1,9 @@
 <p-toast></p-toast>
 <p-confirmPopup></p-confirmPopup>
-<p-splitter layout="horizontal">
+<p-splitter layout="horizontal" [panelSizes]="[20,80]">
     <ng-template pTemplate>
-        <div class="p-col-12 p-md-4 drag-column">
-            <h1>{{name}}</h1>
+        <div class="p-col-12 p-md-2 drag-column">
+            <h1>Pais: {{name}}</h1>
             <div *ngFor="let card of rockBands">
                 <div class="card-item" pDraggable="rockBands" (onDragStart)="dragStart(card)" (onDragEnd)="dragEnd()">
                     <p-card header="{{card.band}}" subheader="Creacion: {{card.year}}" [style]="{width: '360px'}" styleClass="p-card-shadow">
@@ -15,7 +15,7 @@
         </div>
     </ng-template>
     <ng-template pTemplate>
-        <div class="p-col-12 p-md-8 drop-column" pDroppable="rockBands" (onDrop)="drop()">
+        <div class="p-col-12 p-md-10 drop-column" pDroppable="rockBands" (onDrop)="drop()">
             <h1>Total: {{totalBandSelected.num}}</h1>
             <p-table [value]="rockBandSelect">
                 <ng-template pTemplate="header">
@@ -32,7 +32,7 @@
                         <td>{{card.id}}</td>
                         <td>{{card.band}}</td>
                         <td>{{card.year}}</td>
-                        <td>{{card.rockBandDescription}}</td>
+                        <td>{{card.rockbanddescription}}</td>
                         <td>
                             <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-danger p-button-outlined" (click)="deleteCard($event, card)">
                             </button>
