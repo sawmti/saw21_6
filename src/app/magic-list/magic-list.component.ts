@@ -3,11 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 
 interface RockBand {
-  id:string;
-  name: string;
+  id: string;
+  band: string;
   image_uris: any;
   year: string;
-  rockBandDescription:string;
+  rockBandDescription: string;
 }
 
 @Component({
@@ -33,14 +33,13 @@ export class MagicListComponent implements OnInit {
     private messageService: MessageService) {
     this.id = localStorage.getItem('ID_DESTINO');
     this.name = localStorage.getItem('NAME_COUNTRY');
-    this.rockBands = [];
-    const arr = localStorage.getItem('ITEM_CARGADOS');
-    if (arr) {
-      this.rockBandSelect = JSON.parse(arr);
-    } else {
-      this.rockBandSelect = [];
-    }
-    this.calcTotal();
+    const arr = this.http.get('/api/bandssql');
+    arr.subscribe((data: any) => {
+      this.rockBandSelect = data;
+      console.log('BANDS:', this.rockBandSelect);
+      this.calcTotal();
+    
+    });
     this.numbers = [1, 2, 3, 4];
   }
 
@@ -51,6 +50,7 @@ export class MagicListComponent implements OnInit {
       this.rockBands = data.data;
       console.log('BANDS:', this.rockBands);
     });
+
   }
 
   calcTotal() {
@@ -89,6 +89,16 @@ export class MagicListComponent implements OnInit {
   }
   drop() {
     if (this.draggedProduct) {
+      const add = this.http.put('/api/bandssql', {
+        "id": this.draggedProduct.id,
+        "band": this.draggedProduct.band,
+        "year": this.draggedProduct.year,
+        "image_uris": this.draggedProduct.image_uris,
+        "rockbanddescription": this.draggedProduct.rockBandDescription
+      });
+      add.subscribe((data: any) => {
+        console.log('Insert:', data);
+      });
       this.saveItemStorage(this.draggedProduct, 1);
       let draggedProductIndex = this.findIndex(this.draggedProduct, this.rockBands);
       this.rockBandSelect = [...this.rockBandSelect, this.draggedProduct];
@@ -101,22 +111,31 @@ export class MagicListComponent implements OnInit {
   deleteCard(event: Event, product: RockBand) {
     this.confirmationService.confirm({
       target: event.target,
-      message: 'Estas seguro que deseas eliminar a ' + product.name + '?',
+      message: 'Estas seguro que deseas eliminar a ' + product.band + '?',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.messageService.add({ severity: 'info', summary: 'Confirmado', detail: 'Has eliminado con exito' });
-        this.deleteItemStorage(product);
-        let draggedProductIndex = this.findIndex(product, this.rockBandSelect);
-        this.rockBands = [...this.rockBands, product];
-        this.rockBandSelect = this.rockBandSelect.filter((val, i) => i != draggedProductIndex);
-        this.draggedProduct = null;
-        this.calcTotal();
+        console.log('Delete1111:', product.id);
+        this.deleteService(product);
       },
       reject: () => {
         this.messageService.add({ severity: 'info', summary: 'Sigue igual', detail: 'No se ha eliminado' });
       }
     });
+  }
 
+  deleteService (product: RockBand){
+    console.log('Delete:', product.id);
+    const add = this.http.delete('/api/bandssql/' + product.id );
+    add.subscribe((data: any) => {
+      console.log('Delete:', data);
+      this.messageService.add({ severity: 'info', summary: 'Confirmado', detail: 'Has eliminado con exito' });
+      this.deleteItemStorage(product);
+      let draggedProductIndex = this.findIndex(product, this.rockBandSelect);
+      this.rockBands = [...this.rockBands, product];
+      this.rockBandSelect = this.rockBandSelect.filter((val, i) => i != draggedProductIndex);
+      this.draggedProduct = null;
+      this.calcTotal()
+    });
   }
 
   changeNumber(event: any, product: RockBand) {
@@ -132,7 +151,7 @@ export class MagicListComponent implements OnInit {
   findIndex(card: RockBand, array: Array<RockBand>) {
     let index = -1;
     for (let i = 0; i < array.length; i++) {
-      if (card.name === array[i].name) {
+      if (card.band === array[i].band) {
         index = i;
         break;
       }

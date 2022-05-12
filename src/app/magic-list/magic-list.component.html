@@ -6,8 +6,8 @@
             <h1>{{name}}</h1>
             <div *ngFor="let card of rockBands">
                 <div class="card-item" pDraggable="rockBands" (onDragStart)="dragStart(card)" (onDragEnd)="dragEnd()">
-                    <p-card header="{{card.name}}" subheader="Creacion: {{card.year}}" [style]="{width: '360px'}" styleClass="p-card-shadow">
-                        <img src="{{card.image_uris}}" width="80px" height="80px" [alt]="card.name" class="card-image" />
+                    <p-card header="{{card.band}}" subheader="Creacion: {{card.year}}" [style]="{width: '360px'}" styleClass="p-card-shadow">
+                        <img src="{{card.image_uris}}" width="80px" height="80px" [alt]="card.band" class="card-image" />
                         <p>{{card.rockBandDescription}}</p>
                     </p-card>
                 </div>
@@ -30,7 +30,7 @@
                 <ng-template pTemplate="body" let-card>
                     <tr>
                         <td>{{card.id}}</td>
-                        <td>{{card.name}}</td>
+                        <td>{{card.band}}</td>
                         <td>{{card.year}}</td>
                         <td>{{card.rockBandDescription}}</td>
                         <td>
